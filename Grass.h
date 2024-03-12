@@ -1,10 +1,9 @@
 #pragma once
 #include "Object.h"
 
-class Grass
+class Grass: public Object
 {
 public:
-	static int get_count();
-protected:
-	static int count;
+	food(int x, int y);
+	int act(Position* p, Position*, Position*, Position*) override;
 };

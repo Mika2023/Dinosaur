@@ -1,11 +1,15 @@
 #pragma once
 #include "Animal.h"
-class Herbivorous : public Animal
+#include "Object.h"
+class Herbivorous : public Object
 {
+//public:
+//	static int get_count();
+//	Herbivorous reproduce(const Herbivorous& animal) const;
+//	void eat_grass() const;
+//protected:
+//	static int count;
 public:
-	static int get_count();
-	Herbivorous reproduce(const Herbivorous& animal) const;
-	void eat_grass() const;
-protected:
-	static int count;
+	Herbivorous(int x, int y);
+	int act(Position* p, Position* eat, Position* sex, Position* enemy) override;
 };
