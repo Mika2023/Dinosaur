@@ -1,5 +1,9 @@
 #pragma once
+#include <vector>
+#include <cmath>
 #include "Object.h"
+#include "Grass.h"
+using namespace std;
 
 class Animal: public Object
 {
@@ -13,5 +17,11 @@ class Animal: public Object
 //	int vision;
 //	int priority;
 //	int reproduction;
-
+protected:
+	int speed;
+	int starve;
+	int vision_rad;
+public:
+	Animal(int sp, int radius, int st);
+	Position check_vision(vector<Object> foods);
 };

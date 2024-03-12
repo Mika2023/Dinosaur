@@ -3,12 +3,11 @@
 class Object
 {
 protected:
-	int starve;
 	int age;
 public:
 	Position pos;
 	obj();
 	virtual int act(Position*, Position*, Position*, Position*) { return 0; };
 	void spawn(Position* p);
-	void normalizepos();
+	void normalizepos(Position& p);
 };

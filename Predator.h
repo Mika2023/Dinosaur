@@ -1,7 +1,7 @@
 #pragma once
 #include "Animal.h"
 #include "Object.h"
-class Predator : public Object
+class Predator : public Animal
 {
 //public:
 //	static int get_count();
@@ -10,6 +10,6 @@ class Predator : public Object
 //protected:
 //	static int count;
 public:
-	Predator(int x, int y);
+	Predator(int x, int y, int st, int sp, int radius);
 	int act(Position* p, Position* eat, Position* sex, Position*) override;
 };
