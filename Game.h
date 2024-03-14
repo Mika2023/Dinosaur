@@ -5,6 +5,8 @@
 #include "Herbivorous.h"
 #include "Position.h"
 using namespace std;
+const size_t width = 20;
+const size_t height = 20;
 
 class Game {
 private:
