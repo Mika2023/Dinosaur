@@ -1,5 +1,6 @@
 #include "Grass.h"
-
+const int grass_age = 20;
+const int grass_spawnrate = 10; //lower is more
 Grass::food(int x, int y)
 {
 	pos.x = x;
@@ -9,9 +10,9 @@ Grass::food(int x, int y)
 int Grass::act(Position* p, Position*, Position*, Position*)
 {//-1 delete obj; 1 create new obj; 0 do nothing. Have no aims
 	age++;
-	if (age > foodage) return -1;//âñå ýòè ãëîáàëüíûå ïåðåìåííûå, êîòîðûå ìû ïåðåäàåì â ñàìîì íà÷àëå
-	//íàäî çàïèõàòü ëèáî â ïîëÿ ñîîòâåòñòâóþùèõ êëàññîâ, ëèáî ïåðåäàâàòü â ìåòîäû â êà÷åñòâå ïàðàìåòðîâ
-	if (age % foodspawnrate == 0) {
+	if (age > grass_age) return -1;//Ã¢Ã±Ã¥ Ã½Ã²Ã¨ Ã£Ã«Ã®Ã¡Ã Ã«Ã¼Ã­Ã»Ã¥ Ã¯Ã¥Ã°Ã¥Ã¬Ã¥Ã­Ã­Ã»Ã¥, ÃªÃ®Ã²Ã®Ã°Ã»Ã¥ Ã¬Ã» Ã¯Ã¥Ã°Ã¥Ã¤Ã Ã¥Ã¬ Ã¢ Ã±Ã Ã¬Ã®Ã¬ Ã­Ã Ã·Ã Ã«Ã¥
+	//Ã­Ã Ã¤Ã® Ã§Ã Ã¯Ã¨ÃµÃ Ã²Ã¼ Ã«Ã¨Ã¡Ã® Ã¢ Ã¯Ã®Ã«Ã¿ Ã±Ã®Ã®Ã²Ã¢Ã¥Ã²Ã±Ã²Ã¢Ã³Ã¾Ã¹Ã¨Ãµ ÃªÃ«Ã Ã±Ã±Ã®Ã¢, Ã«Ã¨Ã¡Ã® Ã¯Ã¥Ã°Ã¥Ã¤Ã Ã¢Ã Ã²Ã¼ Ã¢ Ã¬Ã¥Ã²Ã®Ã¤Ã» Ã¢ ÃªÃ Ã·Ã¥Ã±Ã²Ã¢Ã¥ Ã¯Ã Ã°Ã Ã¬Ã¥Ã²Ã°Ã®Ã¢
+	if (age % grass_spawnrate == 0) {
 		spawn(p);
 		return 1;
 	}
