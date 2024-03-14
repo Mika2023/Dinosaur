@@ -2,6 +2,7 @@
 const int start_grass_count = 10;
 const int start_herb_count = 4;
 const int start_pred_count = 2;
+
 Game::Game()
 {
 	tick = 0;
@@ -10,21 +11,21 @@ Game::Game()
 			world[i][j] = content::empty;
 	//preset: 10 food, 4 civilians, 2 invaders
 	srand(clock());
-	for (size_t i = 0; i < startfoodcount; i++) {
+	for (size_t i = 0; i < start_grass_count; i++) {
 		grass.push_back(Grass(rand() % width, rand() % height));
 		//todo: check if this position is full
 		world[grass[grass.size() - 1].pos.y][grass[grass.size() - 1].pos.x] = content::gr;
 	}
 
-	//for (size_t i = 0; i < startanimal1count; i++) {
-		//herb.push_back(Herbivorous(rand() % width, rand() % height));
-		//world[herb[herb.size() - 1].pos.y][herb[herb.size() - 1].pos.x] = content::herbivorous;
-	//}
+	/*for (size_t i = 0; i < start_herb_count; i++) {
+		herb.push_back(Herbivorous(rand() % width, rand() % height));
+		world[herb[herb.size() - 1].pos.y][herb[herb.size() - 1].pos.x] = content::herbivorous;
+	}*/
 
-	//for (size_t i = 0; i < startanimal2count; i++) {
-		//pred.push_back(Predator(rand() % width, rand() % height));
-		//world[pred[pred.size() - 1].pos.y][pred[pred.size() - 1].pos.x] = content::predator;
-	//}
+	/*for (size_t i = 0; i < start_pred_count; i++) {
+		pred.push_back(Predator(rand() % width, rand() % height));
+		world[pred[pred.size() - 1].pos.y][pred[pred.size() - 1].pos.x] = content::predator;
+	}*/
 }
 
 void Game::printworld()
@@ -71,8 +72,8 @@ void Game::start()
 
 		//check the worst cases when someone dies or full world etc.
 		//add the logic of other species
+		//Sleep(2000);
 		printworld();
 		Sleep(1000);
-		//_sleep(500);
 	}
 }
