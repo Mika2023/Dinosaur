@@ -8,12 +8,12 @@ Animal::Animal(int sp, int radius, int st)
 	starve = st;
 }
 
-Position Animal::check_vision(vector<Object> grass)
+Position Animal::check_vision(vector<Object> food)
 {
-	int size = grass.size();
+	int size = food.size();
 	for (int i = 0; i < size; ++i)
 	{
-		if (abs(grass[i].pos.x - pos.x) <= vision_rad && abs(grass[i].pos.y - pos.y) <= vision_rad)
+		if (abs(food[i].pos.x - pos.x) <= vision_rad && abs(food[i].pos.y - pos.y) <= vision_rad)
 			return grass[i].pos;
 	}
 	Position p;
