@@ -14,7 +14,7 @@ void Object::spawn(Position* p)
 		
 		p->x = pos.x + rand() % 3 - 1;
 		p->y = pos.y + rand() % 3 - 1;
-		normilizepos(*p);
+		normalizepos(*p);
 		//make the good generation of position with checking destination cell if it occupied
 	} while (pos.y == p->y && pos.x == p->x);
 }
