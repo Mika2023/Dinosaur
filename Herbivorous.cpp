@@ -1,23 +1,29 @@
 #include "Herbivorous.h"
+const int herb_age = 40;
+const int herb_speed = 2;
+const int herb_starving = 10;
+const int herb_startstarve = 20;
+const size_t width = 20;
+const size_t height = 20;
 
-Herbivorous::Herbivorous(int x, int y)
-{
-	starve = animal1startstarve;
-	pos.x = x;
-	pos.y = y;
-}
+//Herbivorous::Herbivorous(int x, int y, int st, int sp, int radius)
+//{
+//	Animal(sp, radius, st);
+//	pos.x = x;
+//	pos.y = y;
+//}
 
 int Herbivorous::act(Position* p, Position* eat, Position* sex, Position* enemy)
 {
 	age++;
 	starve--;
-	if (starve <= 0 || age > animal1age) return -1;
-	if (age % animal1speed == 0) {
+	if (starve <= 0 || age > herb_age) return -1;
+	if (age % herb_speed == 0) {
 		if (enemy->x != -1 && enemy->y != -1) {
 			pos.x -= (pos.x <= enemy->x) * 2 - 1; //oposite moving, minus
 			pos.y -= (pos.y <= enemy->y) * 2 - 1;
 		}
-		else if (starve <= animal1starving && eat->x != -1 && eat->y != -1) {
+		else if (starve <= herb_starving && eat->x != -1 && eat->y != -1) {
 			pos.x += (pos.x <= eat->x) * 2 - 1; //straight moving, plus
 			pos.y += (pos.y <= eat->y) * 2 - 1;
 		}
@@ -36,7 +42,7 @@ int Herbivorous::act(Position* p, Position* eat, Position* sex, Position* enemy)
 			else if (pos.y == 0) pos.y++;
 			else if (pos.y == height - 1) pos.y--;
 		}
-		normalizepos();
+		//normalizepos();
 	}
 	return 0;
 }
