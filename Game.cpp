@@ -1,5 +1,7 @@
 #include "Game.h"
-
+const int start_grass_count = 10;
+const int start_herb_count = 4;
+const int start_pred_count = 2;
 Game::Game()
 {
 	tick = 0;
@@ -14,26 +16,27 @@ Game::Game()
 		world[grass[grass.size() - 1].pos.y][grass[grass.size() - 1].pos.x] = content::gr;
 	}
 
-	for (size_t i = 0; i < startanimal1count; i++) {
-		herb.push_back(Herbivorous(rand() % width, rand() % height));
-		world[herb[herb.size() - 1].pos.y][herb[herb.size() - 1].pos.x] = content::herbivorous;
-	}
+	//for (size_t i = 0; i < startanimal1count; i++) {
+		//herb.push_back(Herbivorous(rand() % width, rand() % height));
+		//world[herb[herb.size() - 1].pos.y][herb[herb.size() - 1].pos.x] = content::herbivorous;
+	//}
 
-	for (size_t i = 0; i < startanimal2count; i++) {
-		pred.push_back(Predator(rand() % width, rand() % height));
-		world[pred[pred.size() - 1].pos.y][pred[pred.size() - 1].pos.x] = content::predator;
-	}
+	//for (size_t i = 0; i < startanimal2count; i++) {
+		//pred.push_back(Predator(rand() % width, rand() % height));
+		//world[pred[pred.size() - 1].pos.y][pred[pred.size() - 1].pos.x] = content::predator;
+	//}
 }
 
 void Game::printworld()
 {
 	system("cls");
+	Sleep(100);
 	for (size_t i = 0; i < height; i++) {
 		for (size_t j = 0; j < width; j++) {
 			switch (world[i][j])
 			{
 			case content::empty:
-				std::cout << ' ';
+				std::cout << '_';
 				break;
 			case content::gr:
 				std::cout << '*';
@@ -69,6 +72,7 @@ void Game::start()
 		//check the worst cases when someone dies or full world etc.
 		//add the logic of other species
 		printworld();
+		Sleep(1000);
 		//_sleep(500);
 	}
 }
