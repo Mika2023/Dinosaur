@@ -4,6 +4,6 @@
 class Grass: public Object
 {
 public:
-	food(int x, int y);
+	Grass(int x, int y);
 	int act(Position* p, Position*, Position*, Position*) override;
 };
