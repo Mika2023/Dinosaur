@@ -1,12 +1,15 @@
 #pragma once
+#include <iostream>
+#include <windows.h>
 #include <vector>
 #include "Grass.h"
 #include "Predator.h"
 #include "Herbivorous.h"
 #include "Position.h"
-using namespace std;
+
 const size_t width = 20;
 const size_t height = 20;
+using namespace std;
 
 class Game {
 private:
