@@ -11,6 +11,7 @@ public:
 	Position pos;
 	Object();
 	virtual int act(Position*, Position*, Position*, Position*) { return 0; };
+	virtual void act_(Position*, Position*, Position*, Position*) {};
 	void spawn(Position* p);
 	void normalizepos(Position& p);
 };

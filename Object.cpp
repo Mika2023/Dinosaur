@@ -1,4 +1,5 @@
 #include "Object.h"
+
 const size_t width = 20;
 const size_t height = 20;
 

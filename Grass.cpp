@@ -1,6 +1,6 @@
 #include "Grass.h"
-const int grass_age = 10;
-const int grass_spawnrate = 5; //lower is more
+#include "Const.h"
+
 Grass::Grass(int x, int y)
 {
 	pos.x = x;
@@ -20,4 +20,9 @@ int Grass::act(Position* p, Position*, Position*, Position*)
 		return 1;
 	}
 	return 0;
+}
+
+void Grass::act_(Position* p, Position*, Position*, Position*)
+{//-1 delete obj; 1 create new obj; 0 do nothing. Have no aims
+		spawn(p);
 }

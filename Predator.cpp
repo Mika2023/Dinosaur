@@ -1,6 +1,5 @@
 #include "Predator.h"
-const int pred_age = 100;
-const int pred_starving = 30;
+#include "Const.h"
 
 
 //Predator::Predator(int x, int y, int st, int sp, int radius)

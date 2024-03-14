@@ -1,10 +1,5 @@
 #include "Herbivorous.h"
-const int herb_age = 40;
-const int herb_speed = 2;
-const int herb_starving = 10;
-const int herb_startstarve = 20;
-const size_t width = 20;
-const size_t height = 20;
+#include "Const.h"
 
 //Herbivorous::Herbivorous(int x, int y, int st, int sp, int radius)
 //{

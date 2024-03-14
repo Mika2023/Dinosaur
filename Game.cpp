@@ -1,9 +1,11 @@
 #include "Game.h"
+#include "Const.h"
 #define GREEN "\033[32m"
 #define RESET "\033[0m"
-const int start_grass_count = 10;
-const int start_herb_count = 4;
-const int start_pred_count = 2;
+
+
+int gr_c = 0;
+int CheckNeighbours(Position& p);
 
 Game::Game()
 {
@@ -22,10 +24,13 @@ Game::Game()
 			x = rand() % height;
 			y = rand() % width;
 		}
-		grass.push_back(Grass(y, x));
+		grass.push_back(Grass(x, y));
+		gr_c++; // GRASS COUNT
+		cout << "GRASS: " << gr_c << " POS: X Y " << x << " " << y << endl; // SHOW GRASS COORD
 		//todo: check if this position is full
 		world[grass[grass.size() - 1].pos.y][grass[grass.size() - 1].pos.x] = content::gr;
 	}
+
 
 	/*for (size_t i = 0; i < start_herb_count; i++) {
 		herb.push_back(Herbivorous(rand() % width, rand() % height));
@@ -40,7 +45,7 @@ Game::Game()
 
 void Game::printworld()
 {
-	system("cls");
+	//system("cls");
 	Sleep(100);
 	for (size_t i = 0; i < height; i++) {
 		for (size_t j = 0; j < width; j++) {
@@ -67,6 +72,7 @@ void Game::printworld()
 	}
 }
 
+
 void Game::start()
 {
 	int msg;
@@ -79,20 +85,33 @@ void Game::start()
 			msg = grass[i].act(&newp, &eat, &sex, &enemy);
 			if (msg == -1)
 			{
-				world[grass[i].pos.y][grass[i].pos.x] = content::empty;
+				world[grass[i].pos.x][grass[i].pos.y] = content::empty; //NEED TO CHECK Y and X 
 				grass.erase(grass.begin() + i);//change the state of the cell
 			}
 			else if (msg == 1)
 			{
-				world[grass[i].pos.y][grass[i].pos.x] = content::gr;
-				grass.push_back(Grass(newp.x, newp.y));
+				world[grass[i].pos.x][grass[i].pos.y] = content::gr;
+				while (world[newp.x][newp.y] != content::empty) //NEED TO CHECK Y and X 
+				{
+					grass[i].act_(&newp, &eat, &sex, &enemy);
+				}
+					grass.push_back(Grass(newp.x, newp.y)); //NEED TO CHECK Y and X 
+
 			}
 		}
+
+
 
 		//check the worst cases when someone dies or full world etc.
 		//add the logic of other species
 		//Sleep(2000);
 		printworld();
-		Sleep(1000);
+		Sleep(1000000);
 	}
+}
+
+
+int CheckNeighbours(Position& p) //TODO
+{
+	return 0;
 }

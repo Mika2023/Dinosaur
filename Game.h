@@ -6,9 +6,8 @@
 #include "Predator.h"
 #include "Herbivorous.h"
 #include "Position.h"
+#include "Const.h"
 
-const size_t width = 20;
-const size_t height = 20;
 using namespace std;
 
 class Game {
@@ -29,6 +28,5 @@ public:
 	Game();
 
 	void printworld();
-
 	void start();
 };
