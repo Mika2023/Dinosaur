@@ -12,23 +12,29 @@ Game::Game()
 	tick = 0;
 	for (size_t i = 0; i < height; i++)
 		for (size_t j = 0; j < width; j++)
-			world[i][j] = content::empty;
+		{
+			world[i][j].cont = content::empty;
+			world[i][j].index = -1;
+		}
+			
 	//preset: 10 food, 4 civilians, 2 invaders
 	srand(clock());
 	for (size_t i = 0; i < start_grass_count; i++)
 	{
-		int x = rand() % height;
-		int y = rand() % width;
-		while (world[y][x] != content::empty)
+		int y = rand() % height;
+		int x = rand() % width;
+		while (world[y][x].cont != content::empty)
 		{
-			x = rand() % height;
-			y = rand() % width;
+			y = rand() % height;
+			x = rand() % width;
 		}
 		grass.push_back(Grass(x, y));
 		gr_c++; // GRASS COUNT
 		cout << "GRASS: " << gr_c << " POS: X Y " << x << " " << y << endl; // SHOW GRASS COORD
 		//todo: check if this position is full
-		world[grass[grass.size() - 1].pos.y][grass[grass.size() - 1].pos.x] = content::gr;
+		int s = grass.size() - 1;
+		world[grass[s].pos.y][grass[s].pos.x].cont = content::gr;
+		world[grass[s].pos.y][grass[s].pos.x].index = s;
 	}
 
 
@@ -49,7 +55,7 @@ void Game::printworld()
 	Sleep(100);
 	for (size_t i = 0; i < height; i++) {
 		for (size_t j = 0; j < width; j++) {
-			switch (world[i][j])
+			switch (world[i][j].cont)
 			{
 			case content::empty:
 				std::cout << '_';
@@ -76,37 +82,68 @@ void Game::printworld()
 void Game::start()
 {
 	int msg;
-	Position newp, eat, sex, enemy;
+	
 	while (true) { //all speices of objs in map condition?
 		tick++;
+		Position newp, eat, sex, enemy;
+		//for (size_t i = 0; i < grass.size(); i++) 
+		//{
+		//	msg = grass[i].act(&newp, &eat, &sex, &enemy);
+		//	if (msg == -1)
+		//	{
+		//		world[grass[i].pos.y][grass[i].pos.x] = content::empty; //NEED TO CHECK Y and X 
+		//		grass.erase(grass.begin() + i);//change the state of the cell
+		//	}
+		//	else if (msg == 1)
+		//	{
+		//		
+		//		while (world[newp.y][newp.x] != content::empty) //NEED TO CHECK Y and X 
+		//		{
+		//			grass[i].act_(&newp, &eat, &sex, &enemy);
+		//		}
+		//		world[newp.y][newp.x] = content::gr;
+		//		grass.push_back(Grass(newp.x, newp.y)); //NEED TO CHECK Y and X 
 
-		for (size_t i = 0; i < grass.size(); i++) 
+		//	}
+		//}
+
+		for (int i = 0; i < height; ++i)
 		{
-			msg = grass[i].act(&newp, &eat, &sex, &enemy);
-			if (msg == -1)
+			for (int j = 0; j < width; ++j)
 			{
-				world[grass[i].pos.x][grass[i].pos.y] = content::empty; //NEED TO CHECK Y and X 
-				grass.erase(grass.begin() + i);//change the state of the cell
-			}
-			else if (msg == 1)
-			{
-				world[grass[i].pos.x][grass[i].pos.y] = content::gr;
-				while (world[newp.x][newp.y] != content::empty) //NEED TO CHECK Y and X 
+				//replace that if switch after tests
+				if (world[i][j].cont == content::gr)
 				{
-					grass[i].act_(&newp, &eat, &sex, &enemy);
-				}
-					grass.push_back(Grass(newp.x, newp.y)); //NEED TO CHECK Y and X 
+					msg = grass[world[i][j].index].act(&newp, &eat, &sex, &enemy);
+					if (msg == -1)
+					{
+						world[i][j].cont = content::empty; //NEED TO CHECK Y and X 
+						grass.erase(grass.begin() + world[i][j].index);//change the state of the cell
+						int s = grass.size();
+						for (int k = world[i][j].index; k < s; ++k) world[grass[k].pos.y][grass[k].pos.x].index -= 1;
+					}
+					else if (msg == 1)
+					{
 
+						while (world[newp.y][newp.x].cont != content::empty) //NEED TO CHECK Y and X 
+						{
+							grass[world[i][j].index].act_(&newp, &eat, &sex, &enemy);
+						}
+						world[newp.y][newp.x].cont = content::gr;
+						grass.push_back(Grass(newp.x, newp.y)); //NEED TO CHECK Y and X 
+						world[newp.y][newp.x].index = grass.size() - 1;
+
+					}
+				}
 			}
 		}
-
-
 
 		//check the worst cases when someone dies or full world etc.
 		//add the logic of other species
 		//Sleep(2000);
 		printworld();
-		Sleep(1000000);
+		cout << "\n";
+		Sleep(1000);
 	}
 }
 
