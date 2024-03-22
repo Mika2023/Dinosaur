@@ -2,12 +2,12 @@
 #include "Const.h"
 
 
-//Predator::Predator(int x, int y, int st, int sp, int radius)
-//{
-//	Animal(sp, radius, st);
-//	pos.x = x;
-//	pos.y = y;
-//}
+Predator::Predator(int x, int y, int st, int sp, int radius)
+{
+	Animal(sp, radius, st);
+	pos.x = x;
+	pos.y = y;
+}
 
 int Predator::act(Position* p, Position* eat, Position* sex, Position*)
 {
