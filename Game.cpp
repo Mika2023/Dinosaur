@@ -1,10 +1,11 @@
 #include "Game.h"
 #include "Const.h"
-#define GREEN "\033[32m"
-#define RESET "\033[0m"
+
 
 
 int gr_c = 0;
+int herb_c = 0;
+int pred_c = 0;
 int CheckNeighbours(Position& p);
 
 Game::Game()
@@ -36,17 +37,39 @@ Game::Game()
 		world[grass[s].pos.y][grass[s].pos.x].cont = content::gr;
 		world[grass[s].pos.y][grass[s].pos.x].index = s;
 	}
+	for (size_t i = 0; i < start_herb_count; i++) 
+        {
+		int y = rand() % height;
+		int x = rand() % width;
+		while (world[y][x].cont != content::empty)
+		{
+			y = rand() % height;
+			x = rand() % width;
+		}
+		herb.push_back(Herbivorous(x, y, herb_startstarve, herb_speed, herb_rad));
+		herb_c++;
+		//todo: check if this position is full
+		int s = herb.size() - 1;
+		world[herb[s].pos.y][herb[s].pos.x].cont = content::herbivorous;
+		world[herb[s].pos.y][herb[s].pos.x].index = s;
+	}
 
-
-	/*for (size_t i = 0; i < start_herb_count; i++) {
-		herb.push_back(Herbivorous(rand() % width, rand() % height));
-		world[herb[herb.size() - 1].pos.y][herb[herb.size() - 1].pos.x] = content::herbivorous;
-	}*/
-
-	/*for (size_t i = 0; i < start_pred_count; i++) {
-		pred.push_back(Predator(rand() % width, rand() % height));
-		world[pred[pred.size() - 1].pos.y][pred[pred.size() - 1].pos.x] = content::predator;
-	}*/
+	for (size_t i = 0; i < start_pred_count; i++)
+	{
+		int y = rand() % height;
+		int x = rand() % width;
+		while (world[y][x].cont != content::empty)
+		{
+			y = rand() % height;
+			x = rand() % width;
+		}
+		pred.push_back(Predator(x, y, pred_startstarve, pred_speed, pred_rad));
+		pred_c++;
+		//todo: check if this position is full
+		int s = pred.size() - 1;
+		world[pred[s].pos.y][pred[s].pos.x].cont = content::predator;
+		world[pred[s].pos.y][pred[s].pos.x].index = s;
+	}
 }
 
 void Game::printworld()
@@ -64,10 +87,10 @@ void Game::printworld()
 				std::cout << GREEN << '*' << RESET;
 				break;
 			case content::herbivorous:
-				std::cout << '1';
+				std::cout << ORANGE << '&' << RESET;
 				break;
 			case content::predator:
-				std::cout << '2';
+				std::cout << BLUE << '#' << RESET;
 				break;
 			default:
 				std::cout << '!';
