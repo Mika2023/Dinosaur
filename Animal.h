@@ -12,6 +12,7 @@ protected:
 	int starve;
 	int vision_rad;
 public:
+        Animal();
 	Animal(int sp, int radius, int st);
 	Position check_vision(vector<Object> foods);
 };
