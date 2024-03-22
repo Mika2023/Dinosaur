@@ -1,12 +1,12 @@
 #include "Herbivorous.h"
 #include "Const.h"
 
-//Herbivorous::Herbivorous(int x, int y, int st, int sp, int radius)
-//{
-//	Animal(sp, radius, st);
-//	pos.x = x;
-//	pos.y = y;
-//}
+Herbivorous::Herbivorous(int x, int y, int sp, int radius, int st)
+{
+	Animal(sp, radius, st);
+	pos.x = x;
+	pos.y = y;
+}
 
 int Herbivorous::act(Position* p, Position* eat, Position* sex, Position* enemy)
 {
