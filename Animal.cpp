@@ -1,5 +1,12 @@
 #include "Animal.h"
 
+Animal::Animal()
+{
+	starve = 0;
+	speed = 0;
+	vision_rad = 0;
+}
+
 Animal::Animal(int sp, int radius, int st)
 {
 	Object();
