@@ -2,6 +2,7 @@
 #include "Position.h"
 #include <iostream>
 #include <chrono>
+#include "Const.h"
 
 class Object
 {
