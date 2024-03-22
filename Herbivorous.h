@@ -1,6 +1,7 @@
 #pragma once
 #include "Animal.h"
 #include "Object.h"
+#include "Const.h"
 
 class Herbivorous : public Animal
 {
