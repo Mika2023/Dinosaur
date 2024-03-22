@@ -1,7 +1,7 @@
 #include "Herbivorous.h"
 #include "Const.h"
 
-Herbivorous::Herbivorous(int x, int y, int sp, int radius, int st)
+Herbivorous::Herbivorous(int x, int y, int st, int sp, int radius)
 {
 	Animal(sp, radius, st);
 	pos.x = x;
