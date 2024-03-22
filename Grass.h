@@ -1,6 +1,6 @@
 #pragma once
 #include "Object.h"
-
+#include "Const.h"
 class Grass : public Object
 {
 public:
