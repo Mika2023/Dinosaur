@@ -159,6 +159,38 @@ void Game::start()
 
 					}
 				}
+				if (world[i][j].cont == content::herbivorous)
+				{	
+					eat = herb[world[i][j].index].check_vision(grass);
+					sex = herb[world[i][j].index].check_vision(herb);
+					enemy = herb[world[i][j].index].check_vision(pred);
+
+					msg = herb[world[i][j].index].act(&newp, &eat, &sex, &enemy);
+					if (msg == -1)
+					{
+						herb_c -= 1;
+						world[i][j].cont = content::empty;
+						herb.erase(herb.begin() + world[i][j].index);
+						int s = herb.size();
+						for (int k = world[i][j].index; k < s; ++k)
+						{
+							world[herb[k].pos.y][herb[k].pos.x].index -= 1;
+						}
+					}
+					else if (msg == 1)
+					{
+						world[i][j].cont = content::empty;
+						world[newp.y][newp.x].cont = content::herbivorous;
+					//	//while (world[newp.y][newp.x].cont != content::empty)
+					//	//{
+					//		//grass[world[i][j].index].act_(&newp, &eat, &sex, &enemy);
+					//	//}
+					//	herb_c++;
+					//	world[newp.y][newp.x].cont = content::herbivorous;
+					//	herb.push_back(Herbivorous(newp.x, newp.y, herb_starving, herb_speed, herb_rad));
+					//	world[newp.y][newp.x].index = herb.size() - 1;
+					}
+				}	
 			}
 		}
 
