@@ -152,6 +152,7 @@ void Game::start()
 						{
 							grass[world[i][j].index].act_(&newp, &eat, &sex, &enemy);
 						}
+						//TO DO: remove the endless loop
 						world[newp.y][newp.x].cont = content::gr;
 						grass.push_back(Grass(newp.x, newp.y)); //NEED TO CHECK Y and X 
 						world[newp.y][newp.x].index = grass.size() - 1;
