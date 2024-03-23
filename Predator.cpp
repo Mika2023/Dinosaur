@@ -2,9 +2,8 @@
 #include "Const.h"
 
 
-Predator::Predator(int x, int y, int st, int sp, int radius)
+Predator::Predator(int x, int y, int st, int sp, int radius): Animal(sp, radius, st)
 {
-	Animal(sp, radius, st);
 	pos.x = x;
 	pos.y = y;
 }
