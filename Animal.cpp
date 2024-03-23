@@ -9,7 +9,7 @@
 
 Animal::Animal(int sp, int radius, int st)
 {
-	Object();
+	//Object();
 	speed = sp;
 	vision_rad = radius;
 	starve = st;
