@@ -37,5 +37,7 @@ int Herbivorous::act(Position* p, Position* eat, Position* sex, Position* enemy)
 		return 0;
 	}
 	//normalizepos();
-	return 0;
+	p->x = pos.x;
+	p->y = pos.y;
+	return 1;
 }
