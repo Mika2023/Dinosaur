@@ -181,6 +181,8 @@ void Game::start()
 					{
 						world[i][j].cont = content::empty;
 						world[newp.y][newp.x].cont = content::herbivorous;
+						world[newp.y][newp.x].index = world[i][j].index;
+						world[i][j].index = -1;
 					//	//while (world[newp.y][newp.x].cont != content::empty)
 					//	//{
 					//		//grass[world[i][j].index].act_(&newp, &eat, &sex, &enemy);
