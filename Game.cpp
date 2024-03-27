@@ -48,6 +48,7 @@ Game::Game()
 		}
 		herb.push_back(Herbivorous(x, y, herb_startstarve, herb_speed, herb_rad));
 		herb_c++;
+		cout << "HERB: " << herb_c << " POS: X Y " << x << " " << y << endl; // SHOW GRASS COORD
 		//todo: check if this position is full
 		int s = herb.size() - 1;
 		world[herb[s].pos.y][herb[s].pos.x].cont = content::herbivorous;
@@ -70,6 +71,7 @@ Game::Game()
 		world[pred[s].pos.y][pred[s].pos.x].cont = content::predator;
 		world[pred[s].pos.y][pred[s].pos.x].index = s;
 	}
+	printworld();
 }
 
 void Game::printworld()
@@ -97,7 +99,7 @@ void Game::printworld()
 				break;
 			}
 		}
-		std::cout << std::endl;
+		std::cout << "\n";
 	}
 }
 
@@ -161,10 +163,9 @@ void Game::start()
 				}
 				if (world[i][j].cont == content::herbivorous)
 				{	
-					eat = herb[world[i][j].index].check_vision(grass);
-					sex = herb[world[i][j].index].check_vision(herb);
-					enemy = herb[world[i][j].index].check_vision(pred);
-
+					eat = herb[world[i][j].index].check_vision(grass,0);
+					sex = herb[world[i][j].index].check_vision(herb,1);
+					enemy = herb[world[i][j].index].check_vision(pred,0);
 					msg = herb[world[i][j].index].act(&newp, &eat, &sex, &enemy);
 					if (msg == -1)
 					{
@@ -181,6 +182,8 @@ void Game::start()
 					{
 						world[i][j].cont = content::empty;
 						world[newp.y][newp.x].cont = content::herbivorous;
+						world[newp.y][newp.x].index = world[i][j].index;
+						world[i][j].index = -1;
 					//	//while (world[newp.y][newp.x].cont != content::empty)
 					//	//{
 					//		//grass[world[i][j].index].act_(&newp, &eat, &sex, &enemy);

@@ -6,5 +6,6 @@
 int main()
 {
 	Game game;
+	cout << "\n";
 	game.start();
 }
