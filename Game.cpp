@@ -90,6 +90,7 @@ void Game::printworld()
 				break;
 			case content::herbivorous:
 				std::cout << ORANGE << '&' << RESET;
+				herb[world[i][j].index].set_mark(0);
 				break;
 			case content::predator:
 				std::cout << BLUE << '#' << RESET;
