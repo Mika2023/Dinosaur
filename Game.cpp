@@ -161,8 +161,9 @@ void Game::start()
 
 					}
 				}
-				if (world[i][j].cont == content::herbivorous)
+				if (world[i][j].cont == content::herbivorous && herb[world[i][j].index].get_mark() != 1)
 				{	
+					herb[world[i][j].index].set_mark(1);
 					eat = herb[world[i][j].index].check_vision(grass,0);
 					sex = herb[world[i][j].index].check_vision(herb,1);
 					enemy = herb[world[i][j].index].check_vision(pred,0);
@@ -180,6 +181,17 @@ void Game::start()
 					}
 					else if (msg == 1)
 					{
+						if (world[newp.y][newp.x].cont == content::gr)
+						{
+							gr_c -= 1;	
+							grass.erase(grass.begin() + world[newp.y][newp.x].index);
+							int s = grass.size();
+							for (int k = world[newp.y][newp.x].index; k < s; ++k)
+							{
+								world[grass[k].pos.y][grass[k].pos.x].index -= 1;
+							}
+							herb[world[i][j].index].increase_starve();
+						}
 						world[i][j].cont = content::empty;
 						world[newp.y][newp.x].cont = content::herbivorous;
 						world[newp.y][newp.x].index = world[i][j].index;
