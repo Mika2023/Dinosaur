@@ -11,9 +11,13 @@ protected:
 	int speed;
 	int starve;
 	int vision_rad;
+	int mark;
 public:
         //Animal();
 	Animal(int sp, int radius, int st);
+	int get_mark() const;
+	void set_mark(int value);
+	void increase_starve();
         template<typename Type>
 	Position check_vision(vector<Type>& food, int is_sex)
 	{
