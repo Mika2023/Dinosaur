@@ -14,7 +14,20 @@ Animal::Animal(int sp, int radius, int st)
 	vision_rad = radius;
 	starve = st;
 }
+int Animal::get_mark() const
+{
+	return mark;
+}
 
+void Animal::set_mark(int value)
+{
+	mark = value;
+}
+
+void Animal::increase_starve()
+{
+	starve += 3;
+}
 //Position Animal::check_vision(vector<Object> food)
 //{
 //	int size = food.size();
