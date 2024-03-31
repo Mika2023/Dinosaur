@@ -32,10 +32,7 @@ public:
 			f_x = 0;
 			f_y = 0;
 			Position checking = ((Object)food[i]).pos;
-			//if (abs(((Object)food[i]).pos.x - pos.x) <= vision_rad && abs(((Object)food[i]).pos.y - pos.y) <= vision_rad)
-			/*if(pos.x<((Object)food[i]).pos.x && ((Object)food[i]).pos.x <=(vision_rad+pos.x)%width || (pos.x-vision_rad)%width<=((Object)food[i]).pos.x && ((Object)food[i]).pos.x<pos.x)
-				if (pos.y < ((Object)food[i]).pos.y && ((Object)food[i]).pos.y <= (vision_rad + pos.y) % height || (pos.y - vision_rad) % height <= ((Object)food[i]).pos.y && ((Object)food[i]).pos.y < pos.y)
-					return ((Object)food[i]).pos;*/
+
 			if (st_x < 0 && checking.x - width >= st_x && checking.x - width <= end_x)  f_x = 1;
 			else if (end_x >= width && checking.x + width >= st_x && checking.x + width <= end_x) f_x = 1;
 			else if (st_x <= checking.x && checking.x <= end_x) f_x = 1;
