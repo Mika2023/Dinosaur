@@ -7,5 +7,6 @@ class Herbivorous : public Animal
 {
 public:
 	Herbivorous(int x, int y, int st, int sp, int radius);
+  virtual ~Herbivorous() {};
 	int act(Position* p, Position* eat, Position* sex, Position* enemy) override;
 };
