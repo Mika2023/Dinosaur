@@ -80,8 +80,8 @@ void Game::printworld()
 {
 	system("cls");
 	cout << "started to print world at tick " << tick << endl;
-	if (baby_born)
-		cout << "baby had born at this tick" << endl;
+	//if (baby_born)
+		//cout << "baby had born at this tick" << endl;
 	//Sleep(100);
 	for (size_t i = 0; i < height; i++) {
 		for (size_t j = 0; j < width; j++) {
@@ -207,7 +207,7 @@ void Game::start()
 						}
 						if (world[newp.y][newp.x].cont == content::herbivorous)
 						{
-							std::cout << "herb in act  met, trying to make a baby. herb acting y,x are " << i << " " << j <<  endl;
+							//std::cout << "herb in act  met, trying to make a baby. herb acting y,x are " << i << " " << j <<  endl;
 							if (free_space.size() != 0)
 							free_space.erase(free_space.begin(), free_space.end()-1);
 							for (int i_index = -2; i_index <= 2; ++i_index)
@@ -222,12 +222,12 @@ void Game::start()
 										free_space.push_back(current_free);
 									}
 								}
-							std::cout << "free_space is initialized" << endl;
+							//std::cout << "free_space is initialized" << endl;
 							if (free_space.size() >= 2)
 							{
 
 								int pick_space = rand() % free_space.size(); // pick random in free_space
-								std::cout << "pick_space is initialized" << endl;
+								//std::cout << "pick_space is initialized" << endl;
 								// lets make a baby first
 								if (world[free_space[pick_space].y][free_space[pick_space].x].cont == content::empty) // if no grass here
 								{
@@ -249,7 +249,7 @@ void Game::start()
 									herb[world[free_space[pick_space].y][free_space[pick_space].x].index].set_mark(1); // mark it as 1
 									baby_born = 1;
 								}
-								cout << "baby has born at " << free_space[pick_space].y << " " << free_space[pick_space].x << endl;
+								//cout << "baby has born at " << free_space[pick_space].y << " " << free_space[pick_space].x << endl;
 								free_space.erase(free_space.begin() + pick_space);
 								// end of making a baby
 
@@ -276,8 +276,8 @@ void Game::start()
 									world[i][j].cont = content::empty;
 									herb[world[free_space[pick_space].y][free_space[pick_space].x].index].set_mark(1); // mark it as 1
 								}
-								cout << "first parent at " << newp.y << " " << newp.x << endl;
-								cout << "second parent at " << free_space[pick_space].y << " " << free_space[pick_space].x << endl;
+								//cout << "first parent at " << newp.y << " " << newp.x << endl;
+								//cout << "second parent at " << free_space[pick_space].y << " " << free_space[pick_space].x << endl;
 								// we had found place for the second parent
 
 								// lets mark the first parent as 1
@@ -285,7 +285,7 @@ void Game::start()
 
 							}
 							else
-								cout << "making baby failed, no space for baby or for parent" << endl;
+								//cout << "making baby failed, no space for baby or for parent" << endl;
 								continue; // continue if no free space for create a baby
 						}
 						else if (world[newp.y][newp.x].cont == content::empty) // empty cell meeted
