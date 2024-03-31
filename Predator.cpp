@@ -16,17 +16,17 @@ int Predator::act(Position* p, Position* eat, Position* sex, Position*)
             return -1;
         if (starve <= pred_starving && eat->x != -1 && eat->y != -1)
         {
-            pos.x += ((pos.x <= eat->x) * 2 - 1) * speed;
-            pos.y += ((pos.y <= eat->y) * 2 - 1) * speed;
+            pos.x += ((pos.x <= eat->x) * 2 - 1);
+            pos.y += ((pos.y <= eat->y) * 2 - 1);
         }
         else if (sex->x != -1 && sex->y != -1)
         {
-            pos.x += ((pos.x <= sex->x) * 2 - 1) * speed;
-            pos.y += ((pos.y <= sex->y) * 2 - 1) * speed;
+            pos.x += ((pos.x <= sex->x) * 2 - 1);
+            pos.y += ((pos.y <= sex->y) * 2 - 1);
         }
         else
         {
-            srand(clock());
+            return 0;
         }
         normalizepos(pos);
         p->x = pos.x;
