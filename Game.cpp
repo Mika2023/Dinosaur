@@ -306,6 +306,116 @@ void Game::start()
 					//	world[newp.y][newp.x].index = herb.size() - 1;
 					}
 				}	
+				if (world[i][j].cont == content::predator && pred[world[i][j].index].get_mark() != 1)
+	                    	{
+		                        pred[world[i][j].index].set_mark(1);
+		                        eat = pred[world[i][j].index].check_vision(herb, 0);
+		                        sex = pred[world[i][j].index].check_vision(pred, 1);
+		                        msg = pred[world[i][j].index].act(&newp, &eat, &sex,&enemy);
+		                        if (msg == -1)
+		                        {
+		                            pred_c -= 1;
+		                            world[i][j].cont = content::empty;
+		                            pred.erase(pred.begin() + world[i][j].index);
+		                            int s = pred.size();
+		                            for (int k = world[i][j].index; k < s; ++k)
+		                            {
+		                                world[pred[k].pos.y][pred[k].pos.x].index -= 1;
+		                            }
+		                        }
+		                        else if (msg == 1)
+		                        {
+		                            if (world[newp.y][newp.x].cont == content::herbivorous)
+		                            {
+		                                herb_c -= 1;
+		                                herb.erase(herb.begin() + world[newp.y][newp.x].index);
+		                                int s = herb.size();
+		                                for (int k = world[newp.y][newp.x].index; k < s; ++k)
+		                                {
+		                                    world[herb[k].pos.y][herb[k].pos.x].index -= 1;
+		                                }
+		                                pred[world[i][j].index].increase_starve();
+		                            }
+		                            if (world[newp.y][newp.x].cont == content::predator)
+		                            {
+		                                if (free_space.size() != 0)
+		                                    free_space.erase(free_space.begin(), free_space.end() - 1);
+		                                for (int i_index = -2; i_index <= 2; ++i_index)
+		                                    for (int j_index = -2; j_index <= 2; ++j_index)
+		                                    {
+		                                        if (world[(newp.y + i_index) % height][(newp.x + j_index) % width].cont != content::herbivorous &&
+		                                            world[(newp.y + i_index) % height][(newp.x + j_index) % width].cont != content::predator) // ignore grass
+		                                        {
+		                                            Position current_free;
+		                                            current_free.y = (newp.y + i_index) % height;
+		                                            current_free.x = (newp.x + j_index) % width;
+		                                            free_space.push_back(current_free);
+		                                        }
+	                                    	    }
+	
+		                                if (free_space.size() >= 2)
+		                                {
+		
+		                                    int pick_space = rand() % free_space.size();                                          // pick random in free_space
+		                                    if (world[free_space[pick_space].y][free_space[pick_space].x].cont == content::empty) // if no grass here
+		                                    {
+		                                        world[free_space[pick_space].y][free_space[pick_space].x].cont = content::predator;
+		                                        pred.push_back(Predator(free_space[pick_space].x, free_space[pick_space].y, pred_startstarve, pred_speed, pred_rad)); // create a baby
+		                                        world[free_space[pick_space].y][free_space[pick_space].x].index = pred.size() - 1;
+		                                        pred[world[free_space[pick_space].y][free_space[pick_space].x].index].set_mark(1); // mark it as 1
+		                                        baby_born = 1;
+		                                    }
+		                                    else if (world[free_space[pick_space].y][free_space[pick_space].x].cont == content::herbivorous) // grass here, need to delete it first
+		                                    {
+		                                        world[free_space[pick_space].y][free_space[pick_space].x].cont = content::herbivorous;
+		                                        herb.erase(herb.begin() + world[free_space[pick_space].y][free_space[pick_space].x].index); // change the state of the cell
+		                                        int s = herb.size();
+		                                        for (int k = world[free_space[pick_space].y][free_space[pick_space].x].index; k < s; ++k)
+		                                            world[herb[k].pos.y][herb[k].pos.x].index -= 1;
+		                                        pred.push_back(Predator(free_space[pick_space].x, free_space[pick_space].y, pred_startstarve, pred_speed, pred_rad)); // create a baby
+		                                        world[free_space[pick_space].y][free_space[pick_space].x].index = pred.size() - 1;
+		                                        pred[world[free_space[pick_space].y][free_space[pick_space].x].index].set_mark(1); // mark it as 1
+		                                        baby_born = 1;
+		                                    }
+		
+		                                    free_space.erase(free_space.begin() + pick_space);
+		                                    pick_space = rand() % free_space.size();
+	
+		                                    if (world[free_space[pick_space].y][free_space[pick_space].x].cont == content::empty) // if no grass here
+		                                    {
+		                                        world[free_space[pick_space].y][free_space[pick_space].x].cont = content::predator;
+		                                        world[free_space[pick_space].y][free_space[pick_space].x].index = world[i][j].index;
+		                                        world[i][j].index = -1;
+		                                        world[i][j].cont = content::empty;
+		                                        pred[world[free_space[pick_space].y][free_space[pick_space].x].index].set_mark(1); // mark it as 1
+		                                    }
+		                                    else if (world[free_space[pick_space].y][free_space[pick_space].x].cont == content::herbivorous) // grass here, need to delete it first
+		                                    {
+		                                        world[free_space[pick_space].y][free_space[pick_space].x].cont = content::predator;
+		                                        herb.erase(herb.begin() + world[free_space[pick_space].y][free_space[pick_space].x].index); // change the state of the cell
+		                                        int s = herb.size();
+		                                        for (int k = world[free_space[pick_space].y][free_space[pick_space].x].index; k < s; ++k)
+		                                            world[herb[k].pos.y][herb[k].pos.x].index -= 1;
+		                                        world[free_space[pick_space].y][free_space[pick_space].x].index = world[i][j].index;
+		                                        world[i][j].index = -1;
+		                                        world[i][j].cont = content::empty;
+		                                        pred[world[free_space[pick_space].y][free_space[pick_space].x].index].set_mark(1); // mark it as 1
+		                                    }
+		                                    pred[world[newp.y][newp.x].index].set_mark(1);
+	                                	}
+	                                	else
+	                                    	    continue;
+	                            }
+	                            else if (world[newp.y][newp.x].cont == content::empty)
+	                            {
+	                                world[i][j].cont = content::empty;
+	                                world[newp.y][newp.x].cont = content::predator;
+	                                world[newp.y][newp.x].index = world[i][j].index;
+	                                world[i][j].index = -1;
+	                                world[i][j].cont = content::empty;
+	                            }
+	                        }
+	                    }
 			}
 		}
 
