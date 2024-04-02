@@ -1,6 +1,6 @@
 #include "Game.h"
 #include "Const.h"
-
+#include "Windows.h"
 
 
 int gr_c = 0;
