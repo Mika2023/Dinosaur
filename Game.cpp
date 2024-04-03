@@ -118,6 +118,24 @@ void Game::start()
 	
 	while (true) { //all speices of objs in map condition?
 		tick++;
+		if (grass.empty()) {
+			cout << "The world has perished because the grass has run out." << endl;
+			break;
+		}
+		if (herb.empty()) {
+			cout << "The world has perished because the herbivores have run out." << endl;
+			break;
+		}
+		if (pred.empty()) {
+			cout << "The world has perished because the predators have run out." << endl;
+			break;
+		}
+		int total_cells = height * width;
+		double occupied_percentage = (static_cast<double>(grass.size() + herb.size() + pred.size()) / total_cells) * 100;
+		if (occupied_percentage >= 90) {
+			cout << "The world has perished due to overpopulation." << endl;
+			break;
+		};
 		baby_born = 0;
 		Position newp, eat, sex, enemy;
 		//for (size_t i = 0; i < grass.size(); i++) 
