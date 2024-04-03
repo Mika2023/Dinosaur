@@ -12,9 +12,12 @@ protected:
 	int starve;
 	int vision_rad;
 	int mark;
+	int birth_cooldown;
 public:
         //Animal();
 	Animal(int sp, int radius, int st);
+	int get_birth_cooldown() const;
+	void set_birth_cooldown(int value);
 	int get_mark() const;
 	void set_mark(int value);
 	void increase_starve();
