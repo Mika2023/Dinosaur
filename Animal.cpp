@@ -9,6 +9,7 @@
 
 Animal::Animal(int sp, int radius, int st)
 {
+	birth_cooldown = 0;
 	//Object();
 	speed = sp;
 	vision_rad = radius;
@@ -17,6 +18,16 @@ Animal::Animal(int sp, int radius, int st)
 int Animal::get_mark() const
 {
 	return mark;
+}
+
+int Animal::get_birth_cooldown() const
+{
+	return birth_cooldown;
+}
+
+void Animal::set_birth_cooldown(int value)
+{
+	birth_cooldown = 0;
 }
 
 void Animal::set_mark(int value)
