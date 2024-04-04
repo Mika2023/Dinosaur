@@ -12,7 +12,7 @@ using namespace std;
 
 class Game {
 private:
-	size_t tick;
+	int tick;
 	WorldStruct world[height][width]; //empty, food, animal1, animal2...
 	vector<Grass> grass;
 	vector<Herbivorous> herb;
@@ -23,4 +23,7 @@ public:
 	Game();
 	void printworld();
 	void start();
+	void delete_grass(int index);
+	void delete_herb(int index);
+	void delete_pred(int index);
 };

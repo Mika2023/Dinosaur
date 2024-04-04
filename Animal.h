@@ -21,7 +21,7 @@ public:
 	int get_mark() const;
 	void set_mark(int value);
 	void increase_starve();
-        template<typename Type>
+    template<typename Type>
 	Position check_vision(vector<Type>& food, int is_sex)
 	{
 		int size = food.size();
