@@ -128,11 +128,11 @@ void Game::start()
 			cout << "The world has perished because the herbivores have run out." << endl;
 			break;
 		}
-		/*
+		
 		if (pred.empty()) {
 			cout << "The world has perished because the predators have run out." << endl;
 			break;
-		}*/
+		}
 		int total_cells = height * width;
 		double occupied_percentage = (static_cast<double>(grass.size() + herb.size() + pred.size()) / total_cells) * 100;
 		if (occupied_percentage >= 90) {
@@ -270,7 +270,7 @@ void Game::start()
 								{
 									//delete_grass(world[free_space[pick_space].y][free_space[pick_space].x].index);
 									world[free_space[pick_space].y][free_space[pick_space].x].cont = content::herbivorous;
-									
+
 									grass.erase(grass.begin() + world[free_space[pick_space].y][free_space[pick_space].x].index);//change the state of the cell
 									int s = grass.size();
 									for (int k = world[free_space[pick_space].y][free_space[pick_space].x].index; k < s; ++k) world[grass[k].pos.y][grass[k].pos.x].index -= 1;
@@ -282,7 +282,7 @@ void Game::start()
 								//cout << "baby has born at " << free_space[pick_space].y << " " << free_space[pick_space].x << endl;
 								free_space.erase(free_space.begin() + pick_space);
 
-						//		// end of making a baby
+								//		// end of making a baby
 
 								herb[world[i][j].index].pos.y = i; // save coords so the second parent wont move
 								herb[world[i][j].index].pos.x = j;
@@ -307,16 +307,16 @@ void Game::start()
 							world[i][j].cont = content::empty;
 							world[i][j].index = -1;
 						}
-							//while (world[newp.y][newp.x].cont != content::empty)
-							//{
-								//grass[world[i][j].index].act_(&newp, &eat, &sex, &enemy);
-							//}
-							/*herb_c++;
-							world[newp.y][newp.x].cont = content::herbivorous;
-							herb.push_back(Herbivorous(newp.x, newp.y, herb_starving, herb_speed, herb_rad));
-							world[newp.y][newp.x].index = herb.size() - 1;*/
+						//while (world[newp.y][newp.x].cont != content::empty)
+						//{
+							//grass[world[i][j].index].act_(&newp, &eat, &sex, &enemy);
+						//}
+						/*herb_c++;
+						world[newp.y][newp.x].cont = content::herbivorous;
+						herb.push_back(Herbivorous(newp.x, newp.y, herb_starving, herb_speed, herb_rad));
+						world[newp.y][newp.x].index = herb.size() - 1;*/
 
-						
+
 					}
 					else if (msg == -1)
 					{
@@ -342,7 +342,7 @@ void Game::start()
 					eat = pred[world[i][j].index].check_vision(herb, 0);
 					sex = pred[world[i][j].index].check_vision(pred, 1);
 					msg = pred[world[i][j].index].act(&newp, &eat, &sex, &enemy); // we change y x of this herb
-					
+
 					if (msg == 1)
 					{
 						if (world[newp.y][newp.x].cont == content::herbivorous)
@@ -485,7 +485,7 @@ void Game::start()
 		cout << "\n" << tick << "\n";
 		cout << "herb number " << herb.size() << endl;
 		cout << "grass number " << grass.size() << endl;
-		Sleep(50);
+		Sleep(100);
 	}
 }
 
