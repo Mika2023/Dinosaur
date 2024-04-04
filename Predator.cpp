@@ -1,15 +1,17 @@
 #include "Predator.h"
 #include "Const.h"
 
-
-Predator::Predator(int x, int y, int st, int sp, int radius): Animal(sp, radius, st)
+Predator::Predator(int x, int y, int st, int sp, int radius) : Animal(sp, radius, st)
 {
 	pos.x = x;
 	pos.y = y;
 }
 
-int Predator::act(Position* p, Position* eat, Position* sex, Position*)
+int Predator::act(Position *p, Position *eat, Position *sex, Position *)
 {
+	// int arr[SIZE] = { -1, 0, 1 };
+	// int rand1 = rand() % 3;
+	// int rand2 = rand() % 3;
 	age++;
 	starve -= 2;
 	birth_cooldown++;
